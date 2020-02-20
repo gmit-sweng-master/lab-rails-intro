@@ -32,9 +32,11 @@ rake routes
 
 ## 2. Create the database and initial migration
 - Create the migration
+
 ```
 rails generate migration create_movies
 ```
+- Edit migration to add movies and store movie's title, rating, description, and release date. 
 ```
 class CreateMovies < ActiveRecord::Migration
   def change
@@ -59,9 +61,37 @@ rake db:migrate
 class Movie < ActiveRecord::Base
 end
 ```
+- Add seed data
+```
+# Seed the RottenPotatoes DB with some movies.
+more_movies = [
+  {:title => 'Aladdin', :rating => 'G',
+    :release_date => '25-Nov-1992'},
+  {:title => 'When Harry Met Sally', :rating => 'R',
+    :release_date => '21-Jul-1989'},
+  {:title => 'The Help', :rating => 'PG-13',
+    :release_date => '10-Aug-2011'},
+  {:title => 'Raiders of the Lost Ark', :rating => 'PG',
+    :release_date => '12-Jun-1981'}
+]
 
-3. Assuming the migration succeeded, update the test database's schema by running rake db:test:prepare.
-4. Run your tests, and if all is well, apply the migration to the production database and deploy the new code to production. The process for applying migrations in production depends on the deployment environment; we'll do that for Heroku in a later part of the exercise.
+more_movies.each do |movie|
+  Movie.create!(movie)
+end
+```
+- Seed the database
+```
+rake db:seed
+```
 
-- Add migration to add movies and store movie's title, rating, description, and release date. 
-
+## Add routes
+- Edit config/routes.rb
+```
+Rails.application.routes.draw do
+  resources :movies
+  root :to => redirect('/movies')
+end
+```
+- Run rake routes to see new routes
+- Go to appp rootUrl/movies
+- Check out log/development.log
