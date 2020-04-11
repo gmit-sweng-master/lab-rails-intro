@@ -1,3 +1,6 @@
+# Introduction to Rails
+In this lab you'll set up a simple Ruby on Rails app from scratch. The app will have an sqllite database defined in a database schema, seed data, and be able to handle CRUD operations on a resource.
+
 ## Setup
 - Fork repo
 - Open fork in GitPod
@@ -93,5 +96,5 @@ Rails.application.routes.draw do
 end
 ```
 - Run rake routes to see new routes
-- Go to appp rootUrl/movies
+- Go to app rootUrl/movies
 - Check out log/development.log
